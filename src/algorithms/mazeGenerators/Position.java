@@ -1,4 +1,4 @@
-package src.algorithms.mazeGenerators;
+package algorithms.mazeGenerators;
 
 
 /**

@@ -1,4 +1,4 @@
-package src.algorithms.mazeGenerators;
+package algorithms.mazeGenerators;
 
 
 /**
@@ -23,9 +23,9 @@ public class EmptyMazeGenerator extends AMazeGenerator{
         }
 
         else{
-            System.out.println("Cannot construct an empty maze with coordinates that less than 2*2 size");
-            System.out.println("We will create a default empty maze in size of 10*10");
-            return this.generate(10,10);
+            System.out.println("Illegal Maze detected");
+            System.out.println("Creating defaut Maze, with the size of (5 * 5)");
+            return this.generate(5,5);
         }
 
     }

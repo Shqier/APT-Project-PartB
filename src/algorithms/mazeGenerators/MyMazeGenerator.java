@@ -1,4 +1,4 @@
-package src.algorithms.mazeGenerators;
+package algorithms.mazeGenerators;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +22,6 @@ public class MyMazeGenerator extends AMazeGenerator{
         if (row >= 2 && col >= 2){
 
             Maze MyMaze = new Maze(row, col);
-            int[][] maze = MyMaze.getMaze();
             Random rand = new Random();
             ArrayList<Position> wallsList = new ArrayList<>();
             Position startPoint = new Position(0, rand.nextInt(col));
@@ -31,32 +30,81 @@ public class MyMazeGenerator extends AMazeGenerator{
 
             for (int i = 0; i < row; i++)
                 for (int j = 0; j < col; j++)
-                    MyMaze.changeValue(i, j, 1);
+                    MyMaze.setCellValue(i, j, 1);
 
-            MyMaze.changeValue(startPoint.getRowIndex(), startPoint.getColumnIndex(), 0);
-            this.addWalls(maze, wallsList, startPoint.getRowIndex(), startPoint.getColumnIndex());
+            MyMaze.setCellValue(startPoint.getRowIndex(), startPoint.getColumnIndex(), 0);
+            this.addWalls(MyMaze, wallsList, startPoint.getRowIndex(), startPoint.getColumnIndex());
 
             while (!wallsList.isEmpty()){
                 Position randomWall = wallsList.get(rand.nextInt(wallsList.size()));
-                ArrayList<Position> neighbors = FindNeighbors(maze, randomWall.getRowIndex(), randomWall.getColumnIndex());
+                ArrayList<Position> neighbors = FindNeighbors(MyMaze, randomWall.getRowIndex(), randomWall.getColumnIndex());
                 if (neighbors.size() == 1){
-                    MyMaze.changeValue(randomWall.getRowIndex(), randomWall.getColumnIndex(), 0);
-                    this.addWalls(maze, wallsList, randomWall.getRowIndex(), randomWall.getColumnIndex());
+                    MyMaze.setCellValue(randomWall.getRowIndex(), randomWall.getColumnIndex(), 0);
+                    this.addWalls(MyMaze, wallsList, randomWall.getRowIndex(), randomWall.getColumnIndex());
                 }
 
                 wallsList.remove(randomWall);
             }
 
             MyMaze.setGoalPosition(goalPoint.getRowIndex(), goalPoint.getColumnIndex());
-            MyMaze.changeValue(goalPoint.getRowIndex(), goalPoint.getColumnIndex(), 0);
+            MyMaze.setCellValue(goalPoint.getRowIndex(), goalPoint.getColumnIndex(), 0);
 
             return MyMaze;
+
+
+            // for (int i = 0; i < row; i++)
+            // for (int j = 0; j < col; j++)
+            //     MyMaze.setCellValue(i, j, 1);
+
+            // MyMaze.setCellValue(startPoint.getRowIndex(), startPoint.getColumnIndex(), 0);
+
+            // // Initialize all walls as edges in the graph
+            // for (int i = 0; i < row; i++) {
+            //     for (int j = 0; j < col; j++) {
+            //         if (i > 0) wallsList.add(new Position(i, j, i - 1, j));
+            //         if (j > 0) wallsList.add(new Position(i, j, i, j - 1));
+            //     }
+            // }
+
+            // // Randomly shuffle the walls list
+            // Collections.shuffle(wallsList, rand);
+
+            // // Iterate through the walls list and add edges to the graph
+            // for (Position wall : wallsList) {
+            //     int row1 = wall.getRowIndex();
+            //     int col1 = wall.getColumnIndex();
+            //     int row2 = wall.getRowIndex();
+            //     int col2 = wall.getColumnIndex();
+
+            //     // Check if the two cells are in different sets
+            //     if (MyMaze.getCellValue(row1, col1) != MyMaze.getCellValue(row2, col2)) {
+            //         MyMaze.setCellValue(row1, col1, 0);
+            //         MyMaze.setCellValue(row2, col2, 0);
+
+            //         // Merge the two sets
+            //         int set1 = MyMaze.getCellValue(row1, col1);
+            //         int set2 = MyMaze.getCellValue(row2, col2);
+            //         for (int i = 0; i < row; i++) {
+            //             for (int j = 0; j < col; j++) {
+            //                 if (MyMaze.getCellValue(i, j) == set2) {
+            //                     MyMaze.setCellValue(i, j, set1);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // MyMaze.setGoalPosition(goalPoint.getRowIndex(), goalPoint.getColumnIndex());
+            // MyMaze.setCellValue(goalPoint.getRowIndex(), goalPoint.getColumnIndex(), 0);
+
+            // return MyMaze;
+
         }
 
         else{
-            System.out.println("Cannot construct a 'my maze' with coordinates that less than 2*2 size");
-            System.out.println("We will create a default 'my maze' in size of 10*10");
-            return this.generate(10,10);
+            System.out.println("Illegal Maze detected");
+            System.out.println("Creating defaut Maze, with the size of (5 * 5)");
+            return this.generate(5,5);
         }
 
     }
@@ -71,7 +119,8 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param row: row index.
      * @param col: col index.
      */
-    private void addWalls(int[][] maze, ArrayList<Position> wallsList, int row, int col){
+    private void addWalls(Maze mymaze, ArrayList<Position> wallsList, int row, int col){
+        int[][] maze = mymaze.getMaze();
         if (col + 1 < maze[row].length){ //right
             if (maze[row][col + 1] == 1)
                 wallsList.add(new Position(row, col + 1));
@@ -104,7 +153,8 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param column: col index.
      * @return
      */
-    private ArrayList<Position> FindNeighbors(int[][] maze, int row, int column) {
+    private ArrayList<Position> FindNeighbors(Maze mymaze, int row, int column) {
+        int[][] maze = mymaze.getMaze();
         ArrayList<Position> neighbors = new ArrayList<>();
         if(column + 1 < maze[row].length){ //right
             if(maze[row][column + 1] == 0)

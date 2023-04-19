@@ -1,4 +1,4 @@
-package src.algorithms.mazeGenerators;
+package algorithms.mazeGenerators;
 
 
 /**
@@ -21,15 +21,12 @@ public class Maze {
      * @param col number of the column in the maze.
      */
     public Maze(int row, int col) {
-        if (row >= 2 && col >= 2){
-            this.row = row;
-            this.col = col;
-            this.startPosition = new Position(0,0);
-            this.goalPosition = new Position(row - 1, col - 1);
-            maze = new int[row][col];
-            maze[0][0] = 0;
-            maze[row - 1][col - 1] = 0;
-        }
+        this.row = row;
+        this.col = col;
+        this.startPosition = new Position(0,0);
+        this.goalPosition = new Position(row - 1, col - 1);
+        maze = new int[row][col];
+        maze[0][0] = 0;
     }
 
 
@@ -123,7 +120,7 @@ public class Maze {
      * @param col: number of the column.
      * @param val: the new value to set.
      */
-    public void changeValue(int row, int col, int val){
+    public void setCellValue(int row, int col, int val){
         this.maze[row][col] = val;
     }
 

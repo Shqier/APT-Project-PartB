@@ -1,4 +1,4 @@
-package src.algorithms.mazeGenerators;
+package algorithms.mazeGenerators;
 import java.util.Random;
 
 
@@ -24,27 +24,27 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         }
         else
         {
-            Maze newMaze = new Maze(row, col);
-            int[][] maze = newMaze.getMaze();
+            Maze MyMaze = new Maze(row, col);
+            int[][] maze = MyMaze.getMaze();
             Random random = new Random();
             // Fill the maze with random values
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
-                    newMaze.changeValue(i, j, random.nextInt(2));
+                    MyMaze.setCellValue(i, j, random.nextInt(2));
                 }
             }
 
             // Set the start and goal positions
             int startPoint = random.nextInt(col);
             int goalPoint = random.nextInt(col);
-            maze[0][startPoint] = 0;
-            newMaze.setStartPosition(0, startPoint);
-            newMaze.setGoalPosition(row - 1, goalPoint);
+            MyMaze.setCellValue(0, startPoint, 0);
+            MyMaze.setStartPosition(0, startPoint);
+            MyMaze.setGoalPosition(row - 1, goalPoint);
 
             // Create the solution for the maze
             this.createSolution(maze, 0, startPoint, goalPoint);
 
-            return newMaze;
+            return MyMaze;
         }
 
     }
@@ -56,34 +56,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      * @param col: column index.
      * @param finalPoint: the goal position of the maze.
      */
-    // public void createSolution(int[][] maze, int row, int col, int finalPoint){
-    //     Random rand = new Random();
-    //     maze[maze.length - 1][finalPoint] = 1;
-    //     while (maze[maze.length - 1][finalPoint] == 1){
-    //         switch (rand.nextInt(3)){
-    //             case 0://down
-    //                 if (row + 1 < maze.length){
-    //                     maze[row + 1][col] = 0;
-    //                     row++;
-    //                 }
-    //                 break;
-
-    //             case 1://right
-    //                 if (col + 1 < maze[row].length){
-    //                     maze[row][col + 1] = 0;
-    //                     col++;
-    //                 }
-    //                 break;
-
-    //             case 2://left
-    //                 if (col - 1 >= 0){
-    //                     maze[row][col - 1] = 0;
-    //                     col--;
-    //                 }
-    //                 break;
-    //         }
-    //     }
-    // }
     public void createSolution(int[][] maze, int row, int col, int finalPoint) {
         Random rand = new Random();
         maze[maze.length - 1][finalPoint] = 1;
