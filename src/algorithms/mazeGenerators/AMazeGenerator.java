@@ -1,4 +1,4 @@
-package algorithms.mazeGenerators;
+package src.algorithms.mazeGenerators;
 
 
 /**
@@ -27,10 +27,10 @@ public abstract class AMazeGenerator implements IMazeGenerator{
      */
     @Override
     public long measureAlgorithmTimeMillis(int row, int col) {
-        long startTime = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         generate(row, col);
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
+        long end = System.currentTimeMillis();
+        return end - start;
     }
 
 }
