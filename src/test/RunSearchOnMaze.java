@@ -11,13 +11,10 @@ public class RunSearchOnMaze {
 
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(10, 10);
-        maze.print();
+        Maze maze = mg.generate(100, 100);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        maze.print();
         solveProblem(searchableMaze, new DepthFirstSearch());
-        maze.print();
         solveProblem(searchableMaze, new BestFirstSearch());
     }
 
