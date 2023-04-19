@@ -13,7 +13,7 @@ public class MyMazeGenerator extends AMazeGenerator{
     /**
      * method for generating the maze, The cells value of the maze ('path and walls) chosen randomly and based on Prim's algorithm.
      * but the maze always has solution.
-     * @param row: number of rows in the maze.
+     * @param row: number of rows in the m،aze.
      * @param col: number of columns in the maze.
      * @return maze generated with Prim's algorithm, with given size of row and column.
      */

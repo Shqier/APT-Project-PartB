@@ -1,21 +1,11 @@
 package algorithms.search;
 import java.util.*;
 
-
-/**
- * BreadthFirstSearch class that extends the Abstract ASearchingAlgorithm class.
- * this class represents the BFS searching algorithm.
- */
-
 public class BreadthFirstSearch extends ASearchingAlgorithm{
 
     protected PriorityQueue<AState> openList;
     protected HashMap<String,Boolean> visited;
 
-
-    /**
-     * Constructor, initializes the attributes.
-     */
     public BreadthFirstSearch() {
         super();
         this.name = "Breadth First Search";
@@ -23,17 +13,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         this.visited = new HashMap<>();
     }
 
-
-    /**
-     * Method which solve the problem.
-     * the solution includes the path from start state to goal state.
-     * @param maze: ISearchable Object, means Object which can be searched.
-     * @return the solution of the searching problem.
-     */
     @Override
     public Solution solve(ISearchable maze) {
         if(maze == null){
-            System.out.println("cannot solve a null maze!");
+            System.out.println("Can't solve a empty maze!");
             return null;
         }
 

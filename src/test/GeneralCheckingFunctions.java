@@ -6,8 +6,6 @@ public class GeneralCheckingFunctions {
 
 
     public static boolean check3DMaze(){
-        // if you have chosen to not do the Maze3D assignment, please change this value to false.
-        // Note, that if this will be false, you will automatically get minus 10 in the score of the first part of the project.
         boolean weChoseToDoTheMaze3DAssignment = false;
         return weChoseToDoTheMaze3DAssignment;
     }
@@ -15,7 +13,7 @@ public class GeneralCheckingFunctions {
 
     public static String getGithubLink(){
         //change the <username> in the link to the username of the student who created the GitHub project:
-        String githubLink = "https://github.com/rayyanb/ATP-Project";
+        String githubLink = "https://github.com/Shqier/APT-Project_PartA";
         return githubLink;
     }
 

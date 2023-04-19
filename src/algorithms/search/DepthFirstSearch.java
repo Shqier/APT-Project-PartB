@@ -12,7 +12,6 @@ import java.util.Stack;
 public class DepthFirstSearch extends ASearchingAlgorithm {
 
     private Stack<AState> openList;
-    private HashMap<String,Boolean> visited;
 
 
     /**
@@ -22,7 +21,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         super();
         this.name = "Depth First Search";
         this.openList = new Stack<>();
-        this.visited = new HashMap<>();
     }
 
 
@@ -45,7 +43,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         ArrayList<AState> successors;
         boolean found = false;
         if(startState == null || goalState == null)
+        {
             return null;
+        }
 
         startState.setCost(-1);
         goalState.setCost(0);
@@ -67,7 +67,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                     }
 
                     this.openList.push(successor);
-                    this.visited.put(successor.toString(), true);
                 }
             }
 

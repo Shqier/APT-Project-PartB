@@ -4,35 +4,25 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 
 
-/**
- * this class represents Object Adapter of the Maze problem.
- * the class Implements ISearchable interface.
- */
-
 public class SearchableMaze implements ISearchable {
 
-    private Maze maze;
+    private Maze Maze;
     private MazeState startState;
     private MazeState goalState;
     private boolean[][] visited;
 
+    public SearchableMaze(Maze Maze) {
+        if (Maze != null) {
+            this.Maze = Maze;
+            String Start = Maze.getStartPosition().toString();
+            String End = Maze.getGoalPosition().toString();
+            this.startState = new MazeState(null, Start, Maze.getStartPosition());
+            this.goalState = new MazeState(null, End, Maze.getGoalPosition());
+            this.visited = new boolean[Maze.getRowIndex()][Maze.getColumnIndex()];
 
-    /**
-     * Constructor, it initializes the attributes.
-     * @param maze: this is the Maze that we will search the solution on it.
-     */
-    public SearchableMaze(Maze maze) {
-        if (maze != null) {
-            this.maze = maze;
-            String start = maze.getStartPosition().toString();
-            String end = maze.getGoalPosition().toString();
-            this.startState = new MazeState(null, start, maze.getStartPosition());
-            this.goalState = new MazeState(null, end, maze.getGoalPosition());
-            this.visited = new boolean[maze.getRowIndex()][maze.getColumnIndex()];
-
-            for (int i = 0; i < maze.getRowIndex(); i++){
-                for(int j = 0; j < maze.getColumnIndex(); j++){
-                    if(maze.getCellValue(i, j) == 0)
+            for (int i = 0; i < Maze.getRowIndex(); i++){
+                for(int j = 0; j < Maze.getColumnIndex(); j++){
+                    if(Maze.getCellValue(i, j) == 0)
                         this.visited[i][j] = false;
                     else
                         this.visited[i][j] = true;
@@ -41,45 +31,31 @@ public class SearchableMaze implements ISearchable {
         }
 
         else{
-            this.maze = null;
+            this.Maze = null;
             this.startState = null;
             this.goalState = null;
-            System.out.println("Can't construct a null maze!");
+            System.out.println("Can't construct a null Maze!");
         }
     }
 
-
-    /**
-     * @return the start state.
-     */
     @Override
     public AState getStartState() {
         return this.startState;
     }
 
-
-    /**
-     * @return the goal state.
-     */
     @Override
     public AState getGoalState() {
         return this.goalState;
     }
 
-
-    /**
-     * getting all the successors of a given state, by calculating and checking all the directions.
-     * @param state: the given state.
-     * @return array of all the successors.
-     */
     @Override
     public ArrayList<AState> getAllPossibleState(AState state) {
         if (state.cost == -1) {
 
             state.setCost(0);
-            for (int i =0 ; i < this.maze.getRowIndex(); i++) {
-                for (int j = 0 ; j < this.maze.getColumnIndex(); j++) {
-                    if(this.maze.getCellValue(i, j) == 0)
+            for (int i =0 ; i < this.Maze.getRowIndex(); i++) {
+                for (int j = 0 ; j < this.Maze.getColumnIndex(); j++) {
+                    if(this.Maze.getCellValue(i, j) == 0)
                         this.visited[i][j] = false;
                     else
                         this.visited[i][j] = true;
@@ -184,8 +160,8 @@ public class SearchableMaze implements ISearchable {
      * @return a boolean value if this successor is valid or not.
      */
     private boolean isValid(MazeState state, int row, int col){
-        int rowSize = this.maze.getRowIndex();
-        int colSize = this.maze.getColumnIndex();
+        int rowSize = this.Maze.getRowIndex();
+        int colSize = this.Maze.getColumnIndex();
         MazeState cameFrom = (MazeState) state.getCameFrom();
         int cameFromRow = -1;
         int cameFromCol = -1;
@@ -200,7 +176,7 @@ public class SearchableMaze implements ISearchable {
             return false;
 
         else if (row < rowSize && col < colSize && row >= 0 && col >= 0){
-            cellValue = this.maze.getCellValue(row, col);
+            cellValue = this.Maze.getCellValue(row, col);
             if (cellValue == 0)
                 return true;
         }
