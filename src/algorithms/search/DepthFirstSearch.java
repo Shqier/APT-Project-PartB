@@ -19,7 +19,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
      */
     public DepthFirstSearch() {
         super();
-        this.name = "Depth First Search";
         this.openList = new Stack<>();
     }
 
@@ -75,6 +74,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
         return new Solution(currState);
     }
-
+    @Override
+    public String getName() {
+        return "Depth First Search";
+    }
 }
 

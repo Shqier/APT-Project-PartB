@@ -8,7 +8,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
 
     public BreadthFirstSearch() {
         super();
-        this.name = "Breadth First Search";
         this.openList = new PriorityQueue<>();
         this.visited = new HashMap<>();
     }
@@ -56,6 +55,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
 
         return new Solution(currState);
     }
-
+    @Override
+    public String getName() {
+        return "Breadth First Search";
+    }
 }
 

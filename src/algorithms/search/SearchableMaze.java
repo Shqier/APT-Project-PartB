@@ -12,14 +12,20 @@ public class SearchableMaze implements ISearchable {
     private boolean[][] visited;
 
     public SearchableMaze(Maze Maze) {
-        if (Maze != null) {
+        if (Maze == null) {
+            this.Maze = null;
+            this.startState = null;
+            this.goalState = null;
+            System.out.println("Can't construct a Null Maze!");
+        }
+
+        else{
             this.Maze = Maze;
             String Start = Maze.getStartPosition().toString();
             String End = Maze.getGoalPosition().toString();
             this.startState = new MazeState(null, Start, Maze.getStartPosition());
             this.goalState = new MazeState(null, End, Maze.getGoalPosition());
             this.visited = new boolean[Maze.getRowIndex()][Maze.getColumnIndex()];
-
             for (int i = 0; i < Maze.getRowIndex(); i++){
                 for(int j = 0; j < Maze.getColumnIndex(); j++){
                     if(Maze.getCellValue(i, j) == 0)
@@ -29,29 +35,24 @@ public class SearchableMaze implements ISearchable {
                 }
             }
         }
-
-        else{
-            this.Maze = null;
-            this.startState = null;
-            this.goalState = null;
-            System.out.println("Can't construct a null Maze!");
-        }
     }
 
-    @Override
-    public AState getStartState() {
-        return this.startState;
-    }
+
 
     @Override
     public AState getGoalState() {
         return this.goalState;
     }
 
+    
+    @Override
+    public AState getStartState() {
+        return this.startState;
+    }
     @Override
     public ArrayList<AState> getAllPossibleState(AState state) {
-        if (state.cost == -1) {
-
+        if (state.cost == -1)
+        {
             state.setCost(0);
             for (int i =0 ; i < this.Maze.getRowIndex(); i++) {
                 for (int j = 0 ; j < this.Maze.getColumnIndex(); j++) {
@@ -151,14 +152,6 @@ public class SearchableMaze implements ISearchable {
         return possibleStates;
     }
 
-
-    /**
-     * private method for checking if a state in [row,col] is a valid successor to the given state.
-     * @param state: state that we want to check its valid successors.
-     * @param row: row of the successor.
-     * @param col: col of the successor.
-     * @return a boolean value if this successor is valid or not.
-     */
     private boolean isValid(MazeState state, int row, int col){
         int rowSize = this.Maze.getRowIndex();
         int colSize = this.Maze.getColumnIndex();

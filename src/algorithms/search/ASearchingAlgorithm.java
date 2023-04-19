@@ -24,11 +24,4 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         return this.visitedNodes;
     }
 
-
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
 }

@@ -15,14 +15,6 @@ public class MazeState extends AState{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MazeState)
-            return (this.getRowIndex() == ((MazeState) obj).getRowIndex() && this.getColIndex() == ((MazeState) obj).getColIndex());
-
-        return false;
-    }
-
-    @Override
     public int compareTo(Object obj) {
         if (obj instanceof MazeState)
             if (this.getRowIndex() == ((MazeState) obj).getRowIndex() && this.getColIndex() == ((MazeState) obj).getColIndex())
@@ -31,9 +23,14 @@ public class MazeState extends AState{
         return -1;
     }
 
-    public Position getPosition(){
-        return this.position;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MazeState)
+            return (this.getRowIndex() == ((MazeState) obj).getRowIndex() && this.getColIndex() == ((MazeState) obj).getColIndex());
+
+        return false;
     }
+
 
     public int getRowIndex(){
         if (this.position == null)
@@ -41,11 +38,15 @@ public class MazeState extends AState{
 
         return this.position.getRowIndex();
     }
+   
+
+    public Position getPosition(){
+        return this.position;
+    }
 
     public int getColIndex(){
         if (this.position == null)
             return -1;
-
         return this.position.getColumnIndex();
     }
 

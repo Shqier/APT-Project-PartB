@@ -13,13 +13,15 @@ public class Solution {
         if (goalState != null){
             Stack<AState> stateStack = new Stack<>();
             AState state = goalState;
-            while (state != null){
+            while (state != null)
+            {
                 stateStack.push(state);
                 state = state.getCameFrom();
             }
-
             while (!stateStack.empty())
+            {
                 solutionPath.add(stateStack.pop());
+            }
         }
 
     }
