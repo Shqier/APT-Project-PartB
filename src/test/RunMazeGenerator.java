@@ -1,4 +1,3 @@
-package test;
 import algorithms.mazeGenerators.*;
 
 

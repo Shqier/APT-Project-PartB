@@ -1,8 +1,9 @@
 package algorithms.mazeGenerators;
 
 
+import java.io.Serializable;
 
-public class Maze {
+public class Maze implements Serializable {
 
     private int row;
     private int col;
@@ -18,6 +19,21 @@ public class Maze {
         this.goalPosition = new Position(row - 1, col - 1);
         maze = new int[row][col];
         maze[0][0] = 0;
+    }
+
+    public Maze(byte[] byteArray){
+        this.row = (int)byteArray[0] * 127 + (int)byteArray[1];
+        this.col = (int)byteArray[2] * 127 + (int)byteArray[3];
+        this.startPosition = new Position((int)byteArray[4] * 127 + (int)byteArray[5], (int)byteArray[6] * 127 + (int)byteArray[7]);
+        this.goalPosition = new Position((int)byteArray[8] * 127 + (int)byteArray[9], (int)byteArray[10] * 127 + (int)byteArray[11]);
+        this.maze = new int[row][col];
+        int index = 12;
+        for(int i=0;i<row;i++) {
+            for (int j = 0; j < col; j++) {
+                maze[i][j] = byteArray[index];
+                index++;
+            }
+        }
     }
 
 
@@ -92,5 +108,58 @@ public class Maze {
     public void setmat(int[][] mat){
         this.maze = mat;
     }
+
+
+    public byte[] toByteArray(){
+        int num = 127;
+        byte[] byteArray = new byte[row * col + 12];
+
+        byte rowByteInt = (byte) (row / num);
+        byte rowByteRest = (byte) (row % num);
+
+        byte colByteInt = (byte) (col / num);
+        byte colByteRest = (byte) (col % num);
+
+        byte startPosRowByteInt = (byte) (this.getStartPosition().getRowIndex() / num);
+        byte startPosRowByteRest = (byte) (this.getStartPosition().getRowIndex() % num);
+
+        byte startPosColByteInt = (byte) (this.getStartPosition().getColumnIndex() / num);
+        byte startPosColByteRest = (byte) (this.getStartPosition().getColumnIndex() % num);
+
+        byte goalPosRowByteInt = (byte) (this.getGoalPosition().getRowIndex() / num);
+        byte goalPosRowByteRest = (byte) (this.getGoalPosition().getRowIndex() % num);
+
+        byte goalPosColByteInt = (byte) (this.getGoalPosition().getColumnIndex() / num);
+        byte goalPosColByteRest = (byte) (this.getGoalPosition().getColumnIndex() % num);
+
+        byteArray[0] = rowByteInt;
+        byteArray[1] = rowByteRest;
+
+        byteArray[2] = colByteInt;
+        byteArray[3] = colByteRest;
+
+        byteArray[4] = startPosRowByteInt;
+        byteArray[5] = startPosRowByteRest;
+
+        byteArray[6] = startPosColByteInt;
+        byteArray[7] = startPosColByteRest;
+
+        byteArray[8] = goalPosRowByteInt;
+        byteArray[9] = goalPosRowByteRest;
+
+        byteArray[10] = goalPosColByteInt;
+        byteArray[11] = goalPosColByteRest;
+
+        int index = 12;
+        for(int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                byteArray[index] = (byte) (maze[i][j]);
+                index++;
+            }
+        }
+
+        return byteArray;
+    }
+
 
 }

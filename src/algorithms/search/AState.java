@@ -1,9 +1,10 @@
 package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
+import java.io.Serializable;
 
 
-public abstract class AState implements Comparable {
+public abstract class AState implements Comparable, Serializable {
 
     protected AState cameFrom;
     protected int cost;

@@ -24,4 +24,5 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         return this.visitedNodes;
     }
 
+
 }
