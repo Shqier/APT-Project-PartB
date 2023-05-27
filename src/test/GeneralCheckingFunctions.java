@@ -13,7 +13,7 @@ public class GeneralCheckingFunctions {
 
     public static String getGithubLink(){
         //change the <username> in the link to the username of the student who created the GitHub project:
-        String githubLink = "https://github.com/Shqier/APT-Project-PartA";
+        String githubLink = "https://github.com/Shqier/APT-Project-PartB";
         return githubLink;
     }
 
